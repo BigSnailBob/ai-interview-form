@@ -1,0 +1,16 @@
+stages:
+  - deploy
+
+deploy_to_production:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Перевіряємо та створюємо папку деплою, якщо її немає"
+    - mkdir -p /interview-site
+    - echo "Безпечно очищаємо старі файли фронтенду..."
+    - find /interview-site -mindepth 1 -delete
+    - echo "Копіюємо нові файли Назара..."
+    - cp -R ./* /interview-site/
+    - echo "Деплой успішно завершено!"
+  only:
+    - main
